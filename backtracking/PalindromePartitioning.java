@@ -1,3 +1,6 @@
+/* Given a string s, partition s such that every string of the partition is a palindrome.
+Return all possible palindrome partitioning of s. */
+
 public class PalindromePartitioning{
     ArrayList<ArrayList<String>> result = new ArrayList();
     int n;
