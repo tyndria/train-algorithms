@@ -16,24 +16,50 @@ function TreeNode(val) {
     this.left = this.right = null;
 }
 
+const buildTreeArray = (treeTop) => {
+    const nodes = [];
+
+    const pushNodes = (node) => {
+
+    }
+}
+
 const buildTree = (inorder, postorder) => {
     const build = (subtreeValues, prevParentIndex, prevParentNode) => {
-        const prevParentValue = postorder[prevParentIndex];
-    
-        const leftChildrens = subtreeValues.splice(0, prevParentValue);
-        const rightChildrens = subtreeValues.splice(prevParentValue + 1, subtreeValues.length);
+        if (prevParentIndex > 0) {
+            const prevParentValue = postorder[prevParentIndex];
+        
+            const dividerIndex = subtreeValues.findIndex(x => x === prevParentValue);
+            const leftChildrens = subtreeValues.slice(0, dividerIndex);
+            const rightChildrens = subtreeValues.slice(dividerIndex + 1, subtreeValues.length);
 
-        const rightChildrenIndex = prevParentIndex - 1;
-        const rightChildrenValue = postorder[rightChildrenIndex];
-        const rightChildrenNode = new TreeNode(rightChildrenValue);
-        prevParentNode.right = rightChildrenNode;
-        build(rightChildrens, rightChildrenIndex, rightChildrenNode);
+            if (rightChildrens.length) {
+                const rightChildrenIndex = prevParentIndex - 1;
+                const rightChildrenValue = postorder[rightChildrenIndex];
+                const rightChildrenNode = new TreeNode(rightChildrenValue);
+                prevParentNode.right = rightChildrenNode;
+                build(rightChildrens, rightChildrenIndex, rightChildrenNode);
+            }
 
-        const leftChildrenIndex = rightChildrenIndex - 1;
-        const leftChildrenValue = postorder[leftChildrenIndex];
-        const leftChildrenNode = new TreeNode(leftChildrenValue);
-        prevParentNode.left = leftChildrenNode;
-        build(leftChildrens, eftChildrenIndex, leftChildrenNode);
+            if (leftChildrens.length) {
+                let leftChildrenIndex = prevParentIndex - 1;
+                while(!leftChildrens.find(x => x === postorder[leftChildrenIndex])) {
+                    leftChildrenIndex --;
+                }
+                const leftChildrenValue = postorder[leftChildrenIndex];
+                const leftChildrenNode = new TreeNode(leftChildrenValue);
+                prevParentNode.left = leftChildrenNode;
+                build(leftChildrens, leftChildrenIndex, leftChildrenNode);
+            }
+        }
     }
 
+    const topNode = new TreeNode(postorder[postorder.length - 1]);
+
+    build(inorder, postorder.length - 1, topNode);
+    console.log(topNode)
 };
+
+// Build an array from tree using breadth-first search
+
+buildTree([4, 2, 5, 1], [4, 5, 2, 1]);
