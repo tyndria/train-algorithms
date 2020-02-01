@@ -13,7 +13,6 @@ Return a list of all possible strings we could create.
  * @return {string[]}
  */
 var letterCasePermutation = function(S) {
-    let index = 0;
     let result = [];
     
     const isNumber = (c) => {
