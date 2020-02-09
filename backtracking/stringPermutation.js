@@ -13,37 +13,27 @@ Return a list of all possible strings we could create.
  * @return {string[]}
  */
 var letterCasePermutation = function(S) {
-    let result = [];
+    const result = [];
     
-    const isNumber = (c) => {
-        return c >= '0' && c <= '9';
-    }
-    
-    const recurse = (s, i) => {
-        if (i < S.length)  {
-            const char = s[i];
-            
-            if (!isNumber(char)) {
-                let newChar = char;
-                
-                if (char !== char.toLowerCase()) {
-                    newChar = char.toLowerCase();
-                } else {
-                    newChar = char.toUpperCase();
-                }
-                
-                newString = s.substring(0, i) + newChar + s.substring(i + 1);
-                
-                result.push(newString);
-                recurse(newString, i + 1);
-            }
-            
-            recurse(s, i + 1);
+    const bruteForce = (s, index) => {
+        if (index >= S.length) {
+            result.push(s);
+            return;
         }
-    }
-  
-    result.push(S);
-    recurse(S, 0);
+       
+        const char = S[index];
+        if (char >= '0' && char <= '9') {
+            bruteForce(s + char, index + 1);
+        } else {
+            const charToUpdate = char === char.toUpperCase() ? char.toLowerCase() : char.toUpperCase();
+            const updatedString = s + charToUpdate;
+
+            bruteForce(updatedString, index + 1)
+            bruteForce(s + char, index + 1);
+        }
+    };
+    
+    bruteForce("", 0);
     
     return result;
 };
