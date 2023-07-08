@@ -13,7 +13,7 @@ Note: For the purpose of this problem, we define empty string as valid palindrom
  * @param {string} s
  * @return {boolean}
  */
-const isPalindrome = (s) => {
+const isPalindromeVersion1 = (s) => {
     // 48 - 57 numbers
     // 97 - 122 lowercase letter 
     const isAlphanumeric = (c) => {
@@ -50,5 +50,44 @@ const isPalindrome = (s) => {
         }
     }
     
+    return true;
+};
+
+
+/**
+ * @param {string} s
+ * @return {boolean}
+ */
+var isPalindromeVersion2 = function(s) {
+    const valid = (index) => {
+        const c = s.charCodeAt(index);
+
+        const isNumber = c <= 57 && c >= 48;
+        const isLowercaseLetter = c <= 122 && c >= 97;
+        const isUppercaseLetter = c <= 90 && c >= 65;
+        
+        if (isNumber || isLowercaseLetter || isUppercaseLetter) {
+            return s[index].toLowerCase();
+        }
+
+        return false;
+    }
+    
+    let left = 0;
+    let right = s.length - 1;
+
+    while (left < right) {
+        if (!valid(left)) {
+            left ++;
+        } else if (!valid(right)) {
+            right --;
+        } else if (valid(left) !== valid(right)) {
+            return false;
+        } else {
+            left ++;
+            right --;
+        }
+    }
+
     return true;
 };

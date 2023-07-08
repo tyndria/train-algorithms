@@ -28,3 +28,19 @@ var maxProfit = function(prices) {
     
     return result;
 };
+
+var maxProfit = function(prices) {
+    if (prices.length <= 1) {
+        return 0;
+    }
+
+    let maxProfit = 0;
+    let minElementInSlice = prices[0];
+
+    for (let i = 1; i < prices.length; i ++) {
+        minElementInSlice = Math.min(minElementInSlice, prices[i - 1]);
+        maxProfit = Math.max(maxProfit, prices[i] - minElementInSlice);
+    }
+
+    return maxProfit;
+};
