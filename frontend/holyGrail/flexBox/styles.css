@@ -1,0 +1,58 @@
+body {
+  font-family: sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  margin: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+header,
+nav,
+main,
+aside,
+footer {
+  text-align: center;
+  padding: 12px;
+}
+
+header {
+  height: 60px;
+  background-color: tomato;
+}
+
+.columns {
+  display: flex;
+  flex-grow: 1;
+}
+
+nav {
+  width: 100px;
+  flex-shrink: 0;
+  background-color: coral;
+}
+
+main {
+  flex-grow: 1;
+  overflow-y: auto;
+  background-color: moccasin;
+}
+
+aside {
+  width: 100px;
+  flex-shrink: 0;
+  background-color: sandybrown;
+}
+
+footer {
+  height: 100px;
+  background-color: slategray;
+}
