@@ -62,3 +62,24 @@ var longestPalindrome = function(s) {
   
   return result < s.length ? result + 1 : result;
 };
+
+var longestPalindrome = function(s) {
+    const lettersTable = {};
+    for (const letter of s) {
+        lettersTable[letter] = (lettersTable[letter] ?? 0) + 1;
+    }
+
+    let palindromLength = 0;
+    let middleLetter = 0;
+
+    for (const [key, value] of Object.entries(lettersTable)) {
+        palindromLength += (value % 2 === 0 ? value : value - 1);
+
+        if (value % 2 > 0 && !middleLetter) {
+            palindromLength += 1;
+            middleLetter = 1;
+        }
+    }
+
+    return palindromLength;
+};

@@ -52,3 +52,24 @@ var reverseList = function(head) {
     
     return traverse(head, null);
 };
+
+var reverseList = function(head) {
+    if (!head) {
+        return head;
+    }
+
+    let reversedListHead = new ListNode(head.val);
+
+    while (head) {
+        const next = head.next;
+        if (next) {
+            const newReversedListNode = new ListNode(next.val);
+            newReversedListNode.next = reversedListHead;
+            reversedListHead = newReversedListNode;
+        }
+
+        head = head.next;
+    }
+
+    return reversedListHead;
+};
