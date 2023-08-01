@@ -37,3 +37,26 @@ var maxPathSum = function(root) {
     traverse(root);
     return maxSum;
 };
+
+var maxPathSum = function(root) {
+    let maxPath = Number.MIN_SAFE_INTEGER;
+    
+    const traverse = (node) => {
+        const maxLeftPath = node?.left ? traverse(node.left) : 0;
+        const maxRightPath = node?.right ? traverse(node.right) : 0;
+        
+        const maxChildPath = Math.max(maxLeftPath, maxRightPath, 0);
+        
+        maxPath = Math.max(
+            maxPath,
+            node.val + maxChildPath, 
+            node.val + maxLeftPath + maxRightPath
+        )
+
+        return node.val + maxChildPath;
+    }
+    
+    traverse(root);
+    
+    return maxPath;
+};
